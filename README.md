@@ -73,16 +73,23 @@ It does not run a full benchmark suite, upload to GitHub, or replace a project's
 
 ## Install
 
+Clone to a temporary directory, then copy the skill folder into your agent's skills directory. Do not clone directly into the skills directory: the `.git` folder trips the validator's forbidden-path check.
+
 ```powershell
-# From a clone (Windows PowerShell)
-Copy-Item -Recurse skills\only-forge-skills "$HOME\.config\opencode\skills\"
-
-# macOS / Linux
-# cp -r skills/only-forge-skills ~/.config/opencode/skills/
-
-# Or install the package
-# only-forge-skills.skill
+# Windows PowerShell
+git clone --depth 1 https://github.com/profanebs/only-forge-skills.git "$env:TEMP\only-forge-skills"
+Copy-Item -Recurse "$env:TEMP\only-forge-skills" "$env:USERPROFILE\.config\opencode\skills\"
+Remove-Item "$env:TEMP\only-forge-skills" -Recurse -Force
 ```
+
+```bash
+# macOS / Linux
+git clone --depth 1 https://github.com/profanebs/only-forge-skills.git /tmp/only-forge-skills
+cp -r /tmp/only-forge-skills ~/.config/opencode/skills/
+rm -rf /tmp/only-forge-skills
+```
+
+Or install the packaged `only-forge-skills.skill` if you already built one.
 
 ## License and credits
 
